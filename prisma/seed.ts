@@ -43,10 +43,17 @@ const userData: Prisma.UserCreateInput[] = [
     },
 ];
 
-export async function main() {
+async function main() {
     for (const u of userData) {
         await prisma.user.create({ data: u });
     }
 }
 
-main();
+main()
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
