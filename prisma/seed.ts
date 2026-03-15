@@ -2,8 +2,13 @@ import { Prisma, PrismaClient } from "@/lib/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+    throw new Error("DATABASE_URL is not set");
+}
+
 const adapter = new PrismaPg({
-    connectionString: process.env.DATABASE_URL,
+    connectionString,
 });
 
 const prisma = new PrismaClient({
@@ -52,7 +57,7 @@ async function main() {
 main()
     .catch((e) => {
         console.error(e);
-        process.exit(1);
+        process.exitCode = 1;
     })
     .finally(async () => {
         await prisma.$disconnect();
