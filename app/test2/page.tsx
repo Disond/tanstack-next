@@ -1,11 +1,9 @@
-// app/test/page.tsx
+// app/test2/page.tsx
 "use client";
 import { useUsers } from "@/hooks/useUsers";
 
 export default function TestPage() {
     const { data: users, isLoading, error, isFetching } = useUsers();
-
-    if (isLoading) return <div>Učitavanje...</div>;
 
     if (isLoading) {
         return (

@@ -5,7 +5,8 @@ export type User = {
 };
 
 export async function getUsers(): Promise<User[]> {
-    const res = await fetch("/api/users");
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/users`);
 
     if (!res.ok) throw new Error("Failed to fetch");
 

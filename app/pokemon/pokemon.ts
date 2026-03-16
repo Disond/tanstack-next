@@ -5,6 +5,9 @@ export const pokemonOptions = queryOptions({
     queryFn: async () => {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon/25");
 
+        if (!response.ok) {
+            throw new Error(`Failed to fetch Pokemon: ${response.status}`);
+        }
         return response.json();
     },
 });
