@@ -1,37 +1,29 @@
-"use client";
-import { getUsers } from "@/client/users";
-import { createUser } from "@/server/users";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-interface User {
-    id: number;
-    name: string;
-}
-
+// app/page.tsx - ČISTA STRANICA
 export default function Home() {
-    const query = useQuery({ queryKey: ["todos"], queryFn: getUsers });
-    const queryClient = useQueryClient();
-
-    const mutation = useMutation({
-        mutationFn: createUser,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["todos"] });
-        },
-    });
-
-    if (query.isLoading) return <div>Loading ...</div>;
     return (
-        <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-            <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-                <button
-                    onClick={() => mutation.mutate({ id: 1, name: "John Doe" })}
-                >
-                    Create User
-                </button>
-                {query.data?.map((user: User) => (
-                    <div key={user.id}>{user.name}</div>
-                ))}
-            </main>
+        <div className="flex min-h-screen items-center justify-center bg-zinc-50 p-8">
+            <div className="max-w-2xl mx-auto text-center">
+                <h1 className="text-4xl font-bold mb-8 bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    TanStack Query + Next.js 16 🚀
+                </h1>
+                <p className="text-xl text-gray-600 mb-8">
+                    Tvoj projekat je 100% funkcionalan!
+                </p>
+                <div className="space-y-4">
+                    <a
+                        href="/test2"
+                        className="block w-full max-w-md mx-auto p-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+                    >
+                        ✅ Test TanStack Query (radi!)
+                    </a>
+                    <a
+                        href="/pokemon"
+                        className="block w-full max-w-md mx-auto p-6 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
+                    >
+                        ⚡ Pokemon stranica
+                    </a>
+                </div>
+            </div>
         </div>
     );
 }
